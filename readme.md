@@ -25,6 +25,6 @@ Experienced developers likely won’t find much new here. However, who knows? Yo
 
 I won’t claim that this course is the best out there. It’s unique. It was created with one purpose in mind: to make complex topics understandable and accessible for beginners.
 
---
+<hr />
 
 _Variant in Russian_: [introduction.md](introduction.md)
