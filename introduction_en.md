@@ -2,7 +2,7 @@
 
 A repository containing all the necessary resources for the **Advanced Web Development** course: theoretical materials, laboratory work, topics for assessments, and exams.
 
-This course is designed for second-year students of the `Informatics & Applied Informatics` program at the Faculty of Mathematics and Informatics of Moldova State University.
+This course is designed for second-year students of the `Informatics` and `Applied Informatics` program at the Faculty of Mathematics and Informatics of Moldova State University.
 
 ## Introduction
 
