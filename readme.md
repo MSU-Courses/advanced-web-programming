@@ -1,30 +1,34 @@
 # Advanced Web Development
 
-A repository containing all the necessary resources for the **Advanced Web Development** course: theoretical materials, laboratory work, topics for assessments, and exams.
+Репозиторий, содержащий все необходимые материалы для курса **Advanced Web Development**: теоретические материалы, лабораторные работы, темы для аттестаций и экзаменов.  
 
-This course is designed for second-year students of the `Informatics & Applied Informatics` program at the Faculty of Mathematics and Informatics of Moldova State University.
+Этот курс предназначен для студентов второго курса специальностей `Информатика и Прикладная информатика` факультета математики и информатики Молдавского Государственного Университета.  
 
-## Introduction
+## Введение
 
-Welcome! If you're here, there are probably a couple of reasons why:  
+Добро пожаловать! Если вы здесь, то, вероятно, есть несколько причин:
 
-1. You want to dive into web development.  
-2. You’re preparing for an exam or assessment.  
+1. Вы хотите познакомиться с веб-разработкой.  
+2. Вы готовитесь к экзамену или аттестации.  
 
-I assume the second option is more likely, but I still hold out hope for the first. If it is indeed the first, then I have just one question: ["Who are you, warrior?"](https://i.imgur.com/GRHnz3A.png).  
+Предполагаю, что второй вариант ближе к истине, но все же надеюсь на первый. Если вариант все таки первый, то возникает вопрос: ["Кто ты воин?"](https://i.imgur.com/GRHnz3A.png).
 
-Alright, enough jokes. Let’s figure out why this guide exists and how it can be useful to you.  
+Ладно, хватит шуток. Давайте разберемся, зачем нужно это пособие и чем оно может быть вам полезно.  
 
-### Who is this course for?
+### Для кого этот курс?
 
-This material is designed for students just beginning their journey into web development. Inside, you’ll find simple examples—perhaps even overly simplistic at times. Occasionally, you may come across basic analogies or a touch of "embellishment." This is all intentional, to make complex concepts easier to grasp and help you take your first steps in this exciting field.  
+Этот материал разработан для студентов, которые только начинают знакомство с веб-разработкой. В курсе вы найдете простые примеры, возможно, даже слишком примитивные. Иногда встретятся банальные сравнения или легкая "приукрашенность". Все это сделано намеренно, чтобы облегчить восприятие сложных концепций и помочь вам сделать первые шаги в этой увлекательной сфере.  
 
-Experienced developers likely won’t find much new here. However, who knows? You might stumble upon something interesting or refresh your knowledge.  
+Опытным разработчикам этот курс, скорее всего, не принесет ничего нового. Однако, кто знает? Возможно, вы найдете что-то интересное или освежите свои знания.  
 
-### What makes this course different?
+### Чем этот курс отличается?
 
-I won’t claim that this course is the best out there. It’s unique. It was created with one purpose in mind: to make complex topics understandable and accessible for beginners.
+Я не собираюсь утверждать, что этот курс лучше всех остальных. Он особенный. Он создан с одной целью — сделать сложные вещи понятными и доступными для начинающих.
 
 <hr />
 
-_Variant in Russian_: [introduction.md](introduction.md)
+**Автор**: Nartea Nichita – [github](https://github.com/devrdn) | [mail](mailto:nichita.nartea@usm.md)
+
+**Год**: 2024
+
+_Variant in English_: [introduction.md](introduction.md)
