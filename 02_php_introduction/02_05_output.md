@@ -10,6 +10,7 @@
 
 ```php
 <?php
+
 echo "Hello, world!";
 echo 2 + 2;
 ```
@@ -22,6 +23,7 @@ echo 2 + 2;
 
 ```php
 <?php
+
 print "Hello, world!";
 print 2 + 2;
 ```
@@ -30,6 +32,7 @@ print 2 + 2;
 
 ```php
 <?php
+
 print("Hello, world!");
 print(2 + 2);
 ```
@@ -46,6 +49,7 @@ print(2 + 2);
 
 ```php
 <?php
+
 $name = "Alice";
 echo "Hello, " . $name;
 ```
