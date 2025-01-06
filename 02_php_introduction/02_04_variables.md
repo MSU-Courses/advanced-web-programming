@@ -159,4 +159,11 @@ if (true) {
 echo $message; // "Initialized inside block"
 ```
 
+## Соглашения по именованию переменных
+
+- Используйте **camelCase** для именования переменных и функций: `$userName`, `$userAge`.
+- Избегайте использования однобуквенных имен переменных: `$a`, `$b`.
+- Используйте понятные имена переменных: `$userAge` вместо `$age`.
+- Используйте **UPPER_CASE** для именования констант: `PI`, `DB_NAME`.
+
 [^1]: Variable scope. PHP Manual [online]. URL: https://www.php.net/manual/language.variables.scope.php
