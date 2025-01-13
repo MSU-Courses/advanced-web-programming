@@ -6,8 +6,7 @@
 
 ## Типы операторов по количеству принимаемых значений
 
-1. **Унарные операторы**  
-   Принимают одно значение.  
+1. **Унарные операторы**. Принимают одно значение.  
    **Пример:** оператор декремента `--`.
 
    ```php
@@ -17,8 +16,7 @@
    echo --$x; // 4
    ```
 
-2. **Бинарные операторы**  
-   Принимают два значения.  
+2. **Бинарные операторы**. Принимают два значения.  
    **Пример:** оператор сложения `+`.
 
    ```php
@@ -28,8 +26,7 @@
    echo $sum; // 15
    ```
 
-3. **Тернарные операторы**  
-   Принимают три значения.  
+3. **Тернарные операторы**. Принимают три значения.  
    **Пример:** тернарный оператор `?:`.
 
    ```php
@@ -56,8 +53,7 @@ PHP поддерживает множество операторов, котор
 
 При написании сложных выражений важно помнить о приоритете операторов [^3]. Это определяет, в каком порядке выполняются операции.
 
-**Пример**
-
+**Пример:**
 ```php
 <?php
 
@@ -81,7 +77,7 @@ echo $result; // 11
 
 Если вы сомневаетесь в приоритете операторов, используйте скобки для явного указания порядка выполнения операций.
 
-> [!NOTE]
+> [!TIP]
 > Полный список операторов и их приоритет можно найти в документации PHP: https://www.php.net/manual/en/language.operators.precedence.php
 
 ## Арифметические операторы
@@ -161,7 +157,7 @@ echo $result; // 11
 - `-1`, если левое значение меньше правого.
 - `1`, если левое значение больше правого.
 
-**Пример**:
+**Пример:**
 
 ```php
 <?php
@@ -183,7 +179,7 @@ echo 15 <=> 10; // 1
 
 Оператор `@` подавляет сообщения об ошибках. Однако его использование не рекомендуется, так как это может скрыть важные проблемы.
 
-### Пример:
+**Пример:**
 
 ```php
 <?php
@@ -194,6 +190,6 @@ $content = @file_get_contents('nonexistent.txt'); // Ошибка подавле
 > [!WARNING]
 > Подавление ошибок с помощью `@` может затруднить отладку. Лучше использовать конструкции `try...catch` или проверку существования файла перед выполнением операции.
 
-[^1]: Operators. php.net [online]. URL: https://www.php.net/manual/en/language.operators.php
-[^2]: Spaceship operator in PHP. medium [online]. URL: https://medium.com/@nabilhasan.live/spaceship-operator-in-php-eec288fec5c6
-[^3]: Operator Precedence. php.net [online]. URL: https://www.php.net/manual/en/language.operators.precedence.php
+[^1]: *Operators*. php.net [online resourse]. Available at: https://www.php.net/manual/en/language.operators.php
+[^2]: *Spaceship operator in PHP*. medium [online resourse]. Available at: https://medium.com/@nabilhasan.live/spaceship-operator-in-php-eec288fec5c6
+[^3]: *Operator Precedence*. php.net [online resourse]. Available at: https://www.php.net/manual/en/language.operators.precedence.php

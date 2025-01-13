@@ -6,7 +6,7 @@
 
 `echo` — это наиболее часто используемый оператор для вывода данных. Он поддерживает вывод одного или нескольких значений и не требует обязательного использования круглых скобок.
 
-**Пример**:
+**Пример:**
 
 ```php
 <?php
@@ -19,7 +19,7 @@ echo 2 + 2;
 
 `print` — это ещё один способ вывода данных. Он работает немного медленнее, чем `echo`. `print` возвращает значение `1`, если вывод прошёл успешно, и `0` в случае ошибки.
 
-**Пример**:
+**Пример:**
 
 ```php
 <?php
@@ -44,7 +44,7 @@ print(2 + 2);
 
 Для объединения строк в PHP используется оператор `.` (точка). Он позволяет объединять строки и переменные в одну строку.
 
-**Пример**:
+**Пример:**
 
 ```php
 <?php
@@ -63,7 +63,7 @@ Hello, Alice
 
 Для объединения строк можно использовать интерполяцию переменных в двойных кавычках. Этот способ является более удобным и понятным.
 
-**Пример**:
+**Пример:**
 
 ```php
 <?php
@@ -78,4 +78,4 @@ echo "Hello, {$name}";
 Hello, Alice
 ```
 
-[^1]: Difference Between Echo and Print in PHP. naukri [online resourse]. Available at: https://www.naukri.com/code360/library/difference-between-echo-and-print-in-php
+[^1]: *Difference Between Echo and Print in PHP*. naukri [online resourse]. Available at: https://www.naukri.com/code360/library/difference-between-echo-and-print-in-php

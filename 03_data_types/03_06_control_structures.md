@@ -22,7 +22,7 @@ if (условие) {
 }
 ```
 
-**Пример**
+**Пример:**
 
 ```php
 <?php
@@ -48,7 +48,7 @@ if ($age >= 18) {
 $variable = условие ? значение_если_истина : значение_если_ложь;
 ```
 
-**Пример**
+**Пример:**
 
 ```php
 <?php
@@ -81,7 +81,7 @@ switch (выражение) {
 }
 ```
 
-**Пример**
+**Пример:**
 
 ```php
 <?php
@@ -145,7 +145,7 @@ do {
 } while (условие);
 ```
 
-**Пример**
+**Пример:**
 
 ```php
 <?php
@@ -172,7 +172,7 @@ for (инициализация; условие; шаг) {
 }
 ```
 
-**Пример**
+**Пример:**
 
 ```php
 <?php
@@ -190,7 +190,7 @@ for ($i = 0; $i < 5; $i++) {
 
 `break` завершает выполнение цикла. Это полезно, если выполнение дальнейших итераций становится бессмысленным или нежелательным.
 
-**Пример**
+**Пример:**
 
 ```php
 <?php
@@ -259,5 +259,5 @@ for ($i = 0; $i < 5; $i++) {
 
 Такой синтаксис более удобен при написании HTML-шаблонов с вкраплениями PHP, так как он улучшает читаемость кода и помогает лучше понимать структуру документа. Это особенно важно в больших проектах, где нужно поддерживать чистоту и порядок в коде.
 
-[^1]: Alternative syntax for control structures. php.net [online]. URL: https://www.php.net/manual/en/control-structures.alternative-syntax.php
-[^2]: Control Structures. php.net [online]. URL: https://www.php.net/manual/en/language.control-structures.php
+[^1]: *Alternative syntax for control structures*. php.net [online resourse]. Available at: https://www.php.net/manual/en/control-structures.alternative-syntax.php
+[^2]: *Control Structures*. php.net [online resourse]. Available at: https://www.php.net/manual/en/language.control-structures.php

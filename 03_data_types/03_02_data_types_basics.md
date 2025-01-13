@@ -207,5 +207,5 @@ processValue("Hello");      // string(5) "Hello"
 > [!NOTE]
 > Использование типа `mixed` удобно, но его применение должно быть оправданным. Если вы можете заранее определить допустимые типы данных, предпочтительнее использовать Union Types (`int|float`, `string|int|float` и т. д.), так как **это делает код более предсказуемым и защищённым от ошибок**.
 
-[^1]: Types. php.net [online]. URL: https://www.php.net/manual/en/language.types.php
-[^2]: Type System. php.net [online]. URL: https://www.php.net/manual/en/language.types.type-system.php
+[^1]: *Types*. php.net [online resourse]. Available at: https://www.php.net/manual/en/language.types.php
+[^2]: *Type System*. php.net [online resourse]. Available at: https://www.php.net/manual/en/language.types.type-system.php
