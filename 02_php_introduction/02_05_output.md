@@ -78,4 +78,4 @@ echo "Hello, {$name}";
 Hello, Alice
 ```
 
-[^1]: *Difference Between Echo and Print in PHP*. naukri [online resourse]. Available at: https://www.naukri.com/code360/library/difference-between-echo-and-print-in-php
+[^1]: *Difference Between Echo and Print in PHP*. naukri [online resource]. Available at: https://www.naukri.com/code360/library/difference-between-echo-and-print-in-php

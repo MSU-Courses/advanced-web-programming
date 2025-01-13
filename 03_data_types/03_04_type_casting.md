@@ -89,4 +89,4 @@ $result = "Not a Number" + 5;
 
 Чтобы избежать таких ошибок, рекомендуется заранее проверять или явно преобразовывать типы данных перед выполнением операций.
 
-[^1]: *Type Juggling*. php.net [online resourse]. Available at: https://www.php.net/manual/en/language.types.type-juggling.php
+[^1]: *Type Juggling*. php.net [online resource]. Available at: https://www.php.net/manual/en/language.types.type-juggling.php

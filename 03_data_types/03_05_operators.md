@@ -190,6 +190,6 @@ $content = @file_get_contents('nonexistent.txt'); // Ошибка подавле
 > [!WARNING]
 > Подавление ошибок с помощью `@` может затруднить отладку. Лучше использовать конструкции `try...catch` или проверку существования файла перед выполнением операции.
 
-[^1]: *Operators*. php.net [online resourse]. Available at: https://www.php.net/manual/en/language.operators.php
-[^2]: *Spaceship operator in PHP*. medium [online resourse]. Available at: https://medium.com/@nabilhasan.live/spaceship-operator-in-php-eec288fec5c6
-[^3]: *Operator Precedence*. php.net [online resourse]. Available at: https://www.php.net/manual/en/language.operators.precedence.php
+[^1]: *Operators*. php.net [online resource]. Available at: https://www.php.net/manual/en/language.operators.php
+[^2]: *Spaceship operator in PHP*. medium [online resource]. Available at: https://medium.com/@nabilhasan.live/spaceship-operator-in-php-eec288fec5c6
+[^3]: *Operator Precedence*. php.net [online resource]. Available at: https://www.php.net/manual/en/language.operators.precedence.php

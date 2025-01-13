@@ -200,4 +200,4 @@ echo $message; // "Initialized inside block"
 - Выбирайте понятные имена: `$userAge` вместо `$age`.
 - Используйте **UPPER_CASE** для констант: `PI`, `DB_NAME`.
 
-[^1]: *Variable scope*. PHP Manual [online resourse]. Available at: https://www.php.net/manual/language.variables.scope.php
+[^1]: *Variable scope*. PHP Manual [online resource]. Available at: https://www.php.net/manual/language.variables.scope.php

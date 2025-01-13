@@ -259,5 +259,5 @@ for ($i = 0; $i < 5; $i++) {
 
 Такой синтаксис более удобен при написании HTML-шаблонов с вкраплениями PHP, так как он улучшает читаемость кода и помогает лучше понимать структуру документа. Это особенно важно в больших проектах, где нужно поддерживать чистоту и порядок в коде.
 
-[^1]: *Alternative syntax for control structures*. php.net [online resourse]. Available at: https://www.php.net/manual/en/control-structures.alternative-syntax.php
-[^2]: *Control Structures*. php.net [online resourse]. Available at: https://www.php.net/manual/en/language.control-structures.php
+[^1]: *Alternative syntax for control structures*. php.net [online resource]. Available at: https://www.php.net/manual/en/control-structures.alternative-syntax.php
+[^2]: *Control Structures*. php.net [online resource]. Available at: https://www.php.net/manual/en/language.control-structures.php
