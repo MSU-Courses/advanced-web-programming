@@ -42,7 +42,7 @@ PHP-код начинается с открывающего тега `<?php`. Э
 
 Смешивание PHP и HTML может значительно ухудшить читаемость и усложнить поддержку кода. Логика должна быть отделена от представления, а PHP-код использоваться только там, где это действительно необходимо.
 
-#### Пример плохой практики:
+**Пример плохой практики**:
 
 ```php
 <div>
@@ -58,7 +58,7 @@ PHP-код начинается с открывающего тега `<?php`. Э
 
 В данном примере HTML и PHP тесно переплетены, что усложняет понимание структуры и внесение изменений.
 
-#### Пример хорошей практики:
+**Пример хорошей практики**
 
 Используйте структурированный подход, минимизируя переключение между PHP и HTML:
 
@@ -72,7 +72,7 @@ PHP-код начинается с открывающего тега `<?php`. Э
 </div>
 ```
 
-#### Пример с тернарным оператором:
+**Пример с тернарным оператором**
 
 Если нужно упростить код, используйте тернарный оператор для формирования текста заранее:
 
@@ -118,7 +118,8 @@ $name = "Alice";
 
 Этот синтаксис удобен для вставки переменных непосредственно в HTML и часто используется для упрощения шаблонов.
 
-Этот подход, хотя и упрощает код, не рекомендуется для использования в крупных проектах из-за возможных проблем с совместимостью, так как некоторые серверы могут его не поддерживать. Поэтому предпочтительнее придерживаться стандартного синтаксиса `<?php echo $variable; ?>`.
+> [!IMPORTANT]
+> Несмотря на удобство, короткий синтаксис может не поддерживаться на некоторых серверах. Для максимальной совместимости рекомендуется использовать стандартный синтаксис `<?php echo $variable; ?`>.
 
 ### Стандарты PSR
 
@@ -138,7 +139,7 @@ $name = "Alice";
 > [!NOTE]
 > На данном этапе нет необходимости запоминать все детали и вникать в них глубоко. Достаточно знать, что такие стандарты существуют. Мы будем постепенно изучать их и разбирать на практике в процессе освоения PHP.
 
-[^1]: PHP tags. php.net [online]. URL: https://www.php.net/manual/en/language.basic-syntax.phptags.php
-[^2]: Instruction separation. php.net [online]: URL: https://www.php.net/manual/en/language.basic-syntax.instruction-separation.php
-[^3]: PSR-1: Basic Coding Standard. PHP-FIG [online]. URL: https://www.php-fig.org/psr/psr-1/
-[^4]: PSR-12: Extended Coding Style. PHP-FIG [online]. URL: https://www.php-fig.org/psr/psr-12/
+[^1]: PHP tags. php.net [online resourse]. Available at: https://www.php.net/manual/en/language.basic-syntax.phptags.php
+[^2]: Instruction separation. php.net [online resourse]: Available at: https://www.php.net/manual/en/language.basic-syntax.instruction-separation.php
+[^3]: PSR-1: Basic Coding Standard. PHP-FIG [online resourse]. Available at: https://www.php-fig.org/psr/psr-1/
+[^4]: PSR-12: Extended Coding Style. PHP-FIG [online resourse]. Available at: https://www.php-fig.org/psr/psr-12/
