@@ -43,7 +43,7 @@
 
 ### Пример использования комментариев
 
-Возьмём цикл `foreach`: https://www.php.net/manual/ru/control-structures.foreach.php
+Возьмём цикл `foreach`: [https://www.php.net/manual/ru/control-structures.foreach.php](https://www.php.net/manual/ru/control-structures.foreach.php)
 
 На странице документации представлены стандартные примеры использования foreach и объяснения синтаксиса. Однако в комментариях пользователей можно найти расширенные примеры, которые выходят за рамки стандартного материала.
 
