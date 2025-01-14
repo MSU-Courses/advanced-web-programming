@@ -151,6 +151,61 @@ array(4) {
 
 Предположите, что произойдёт, если в конец массива выше добавить элемент без ключа? Какой индекс он получит?
 
+## Доступ к несуществующему ключу
+
+Если попытаться обратиться к ключу массива, который не существует, PHP вернёт `null` и выведет предупреждение.
+
+**Пример.** _Обращение к несуществующему ключу_
+
+```php
+<?php
+
+<?php
+
+$arr = [
+    'name' => 'John',
+    'city' => 'New York'
+];
+
+echo $arr['age']; // PHP Warning:  Undefined array key "age"
+
+echo 'Следующая строка...'; // PHP продолжит выполнение и выведет эту строку
+```
+
+Чтобы избежать предупреждений при доступе к несуществующему ключу, можно использовать следующие подходы:
+
+- **Функция** `isset()`. Проверяет, существует ли ключ в массиве и его значение не равно null.
+- **Функция** `array_key_exists()`. Проверяет, существует ли ключ в массиве, независимо от значения (`null` или `нет`).
+- **Оператор** `??`. Возвращает значение по умолчанию, если ключ не существует.
+   
+**Пример.** _Проверка существования ключа_
+
+```php
+<?php
+
+$arr = [
+    'name' => 'John',
+    'city' => 'New York'
+];
+
+// Использование isset()
+if (isset($arr['age'])) {
+    echo $arr['age'];
+} else {
+    echo 'Ключ "age" не существует';
+}
+
+// Использование array_key_exists()
+if (array_key_exists('age', $arr)) {
+    echo $arr['age'];
+} else {
+    echo 'Ключ "age" не существует';
+}
+
+// Использование оператора ??
+echo $arr['age'] ?? 'Ключ "age" не существует';
+```
+
 [^1]: _Массив_. SkillFactory [online resource]. Available at: https://blog.skillfactory.ru/glossary/massiv/
 [^2]: _Yugandharkumar. Arrays_. medium [online resource]. Available at: https://yugandharkumar05.medium.com/arrays-c5a00de6c32c
 [^3]: _Arrays_. php.net [online resource]. Available at: https://www.php.net/manual/en/language.types.array.php
