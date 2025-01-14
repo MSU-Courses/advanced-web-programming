@@ -817,7 +817,7 @@ Array ($removed)
 
 $fruits = ['apple', 'banana', 'orange', 'grape'];
 
-// Негативное смещение позволяет указывать индексы с конца массива. 
+// Негативное смещение позволяет указывать индексы с конца массива.
 // Удаляем элемент по индексу -2 (с конца массива)
 $removed = array_splice($fruits, -2, 1);
 
@@ -871,6 +871,150 @@ Array
 )
 ```
 
+## Преобразование массивов в строки и обратно
+
+При разработке часто возникает задача преобразования массивов в строки и наоборот — например, для передачи данных через URL, сохранения в файле или вывода.
+
+В PHP для этого используются функции `implode()` и `explode()`.
+
+### Преобразование массива в строку
+
+Функция implode() объединяет элементы массива в строку, разделяя их заданным разделителем [^13].
+
+**Синтаксис**
+
+```php
+implode(string $glue, array $pieces): string
+```
+
+- `$glue` — строка-разделитель, используемая для объединения элементов массива.
+- `$pieces` — массив, элементы которого нужно объединить.
+
+**Возвращаемое значение**: строка, содержащая элементы массива, разделённые указанным разделителем.
+
+**Пример.** _Преобразование массива в строку._
+
+```php
+<?php
+
+$fruits = ['apple', 'banana', 'orange'];
+
+// Преобразование массива в строку
+$fruitsString = implode(', ', $fruits);
+
+echo $fruitsString; // apple, banana, orange
+```
+
+### Преобразование строки в массив
+
+Функция `explode()` разбивает строку на массив, используя заданный разделитель [^14].
+
+**Синтаксис**
+
+```php
+explode(string $delimiter, string $string, int $limit = PHP_INT_MAX): array
+```
+
+- `$delimiter` — строка, которая используется для разделения.
+- `$string` — строка, которую нужно разбить на элементы массива.
+- `$limit` — максимальное количество элементов в результирующем массиве. По умолчанию `PHP_INT_MAX`.
+
+**Возвращаемое значение**: массив, содержащий элементы строки.
+
+**Пример.** _Преобразование строки в массив._
+
+```php
+<?php
+
+$names = 'John, Alice, Bob';
+
+// Преобразование строки в массив
+$namesArray = explode(', ', $names);
+
+print_r($namesArray);
+```
+
+**Результат выполнения кода**:
+
+```
+Array
+(
+    [0] => John
+    [1] => Alice
+    [2] => Bob
+)
+```
+
+## Функция `compact()`
+
+Функция `compact()` в PHP позволяет создавать массивы из переменных и их значений, избегая избыточного кода и тавтологии [^15].
+
+Рассмотрим следующую задачу: у вас есть переменные, и вам нужно создать из них массив.
+
+Обычное решение выглядит так:
+
+```php
+<?php
+
+$name = 'John';
+$age = 30;
+$city = 'New York';
+
+$person = [
+    'name' => $name,
+    'age' => $age,
+    'city' => $city
+];
+```
+
+В этом случае приходится повторять имена переменных, что приводит к избыточности кода и снижает его читаемость.
+
+Функция `compact()` устраняет эту проблему, автоматически создавая массив из указанных переменных и их значений.
+
+**Синтаксис**
+
+```php
+compact(string ...$var_names): array
+```
+
+- `$var_names` — список имён переменных, которые нужно включить в массив.
+
+**Возвращаемое значение**: массив, где ключами являются имена переменных, а значениями — их значения.
+
+**Пример.** _Использование функции `compact()`._
+
+```php
+<?php
+
+$name = 'John';
+$age = 30;
+$city = 'New York';
+
+// Создание массива из переменных
+$person = compact('name', 'age', 'city');
+
+print_r($person);
+```
+
+**Результат выполнения кода**:
+
+```
+Array
+(
+    [name] => John
+    [age] => 30
+    [city] => New York
+)
+```
+
+## Где искать остальные функции?
+
+Рассмотреть все функции для работы с массивами в PHP в рамках одного урока невозможно.
+
+Однако, PHP предоставляет широкий набор встроенных функций для работы с массивами, которые вы можете изучить самостоятельно.
+
+В официальной документации PHP представлен полный список функций для работы с массивами: https://www.php.net/manual/ru/ref.array.php
+
 [^1]: _foreach_. php.net [online resource]. Available at: https://www.php.net/manual/en/control-structures.foreach.php
 [^2]: _array push_. php.net [online resource]. Available at: https://www.php.net/manual/en/function.array-push.php
 [^3]: _array unshift_. php.net [online resource]. Available at: https://www.php.net/manual/en/function.array-unshift.php
@@ -883,3 +1027,6 @@ Array
 [^10]: _array search_. php.net [online resource]. Available at: https://www.php.net/manual/en/function.array-search.php
 [^11]: _array column_. php.net [online resource]. Available at: https://www.php.net/manual/en/function.array-column.php
 [^12]: _array splice_. php.net [online resource]. Available at: https://www.php.net/manual/en/function.array-splice.php
+[^13]: _implode_. php.net [online resource]. Available at: https://www.php.net/manual/en/function.implode.php
+[^14]: _explode_. php.net [online resource]. Available at: https://www.php.net/manual/en/function.explode.php
+[^15]: _compact_. php.net [online resource]. Available at: https://www.php.net/manual/en/function.compact.php
