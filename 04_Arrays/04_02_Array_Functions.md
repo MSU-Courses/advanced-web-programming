@@ -897,12 +897,12 @@ implode(string $glue, array $pieces): string
 ```php
 <?php
 
-$fruits = ['apple', 'banana', 'orange'];
+$params = ["id=123", "category=books", "sort=desc"];
 
-// Преобразование массива в строку
-$fruitsString = implode(', ', $fruits);
+$queryString = implode("&", $params);
 
-echo $fruitsString; // apple, banana, orange
+echo "https://example.com/search?$queryString";
+// https://example.com/search?id=123&category=books&sort=desc
 ```
 
 ### Преобразование строки в массив
@@ -926,12 +926,10 @@ explode(string $delimiter, string $string, int $limit = PHP_INT_MAX): array
 ```php
 <?php
 
-$names = 'John, Alice, Bob';
+$tags = "php, programming, web-development";
+$tagsArray = explode(", ", $tags);
 
-// Преобразование строки в массив
-$namesArray = explode(', ', $names);
-
-print_r($namesArray);
+print_r($tagsArray);
 ```
 
 **Результат выполнения кода**:
@@ -939,9 +937,9 @@ print_r($namesArray);
 ```
 Array
 (
-    [0] => John
-    [1] => Alice
-    [2] => Bob
+    [0] => php
+    [1] => programming
+    [2] => web-development
 )
 ```
 
