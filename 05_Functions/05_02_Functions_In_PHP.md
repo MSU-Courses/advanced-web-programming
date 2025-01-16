@@ -437,9 +437,9 @@ echo $operations[$operation](2, 3); // Вывод: 5
 
 ```php
 <?php
-    function printGreeting(string $name): string {
-        return "Hello, $name!";
-    }
+function printGreeting(string $name): string {
+    return "Hello, $name!";
+}
 ?>
 
 <!DOCTYPE html>
