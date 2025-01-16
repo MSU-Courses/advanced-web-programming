@@ -458,21 +458,21 @@ echo $operations[$operation](2, 3); // Вывод: 5
 
 ```php
 <?php
-    /**
-     * Генерация HTML-списка из массива элементов.
-     *
-     * @param array $items Массив элементов.
-     *
-     * @return string HTML-список.
-     */
-    function generateList(array $items): string {
-        $html = "<ul>";
-        foreach ($items as $item) {
-            $html .= "<li>" . htmlspecialchars($item) . "</li>";
-        }
-        $html .= "</ul>";
-        return $html;
+/**
+ * Генерация HTML-списка из массива элементов.
+ *
+ * @param array $items Массив элементов.
+ *
+ * @return string HTML-список.
+ */
+function generateList(array $items): string {
+    $html = "<ul>";
+    foreach ($items as $item) {
+        $html .= "<li>" . htmlspecialchars($item) . "</li>";
     }
+    $html .= "</ul>";
+    return $html;
+}
 ?>
 
 <!DOCTYPE html>
