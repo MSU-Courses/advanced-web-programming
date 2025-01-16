@@ -548,7 +548,7 @@ function humanizeTime(DateTime $date): string
         <p>Post content</p>
         <footer>
             <p>Author: John Doe</p>
-            <p>Published: <?= humanizeTime(new DateTime('2025-01-16 07:12:00')) ?></p>
+            <p>Published: <?php echo humanizeTime(new DateTime('2025-01-16 07:12:00')) ?></p>
         </footer>
     </article>
 </body>
