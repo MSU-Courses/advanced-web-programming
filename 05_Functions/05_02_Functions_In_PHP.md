@@ -560,4 +560,5 @@ function humanizeTime(DateTime $date): string
 <img src="https://imgur.com/sLSFs4s.png" style="width: 100%; max-width: 800px;" />
 
 [^1]: _User Defined_. php.net [online resource]. Available at: https://www.php.net/manual/en/functions.user-defined.php
-[^2]: _Function parameters and arguments_. php.net [online]. Available at: https://www.php.net/manual/en/functions.arguments.php
+[^2]: _Function parameters and arguments_. php.net [online resource]. Available at: https://www.php.net/manual/en/functions.arguments.php
+[^3]: _Variable functions_. php.net [online resource]. Available at: https://www.php.net/manual/en/functions.variable-functions.php
