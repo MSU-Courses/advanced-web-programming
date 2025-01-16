@@ -226,7 +226,8 @@ substr(string $string, int $offset, ?int $length = null): string
 $content = "Lorem ipsum dolor sit amet, consectetur adipiscing elit.";
 
 $preview = substr($content, 0, 50) . "...";
-echo $preview;
+
+echo $preview; // Lorem ipsum dolor sit amet, consectetur adi...
 ```
 
 ## Замена подстроки
