@@ -91,8 +91,8 @@ $users = [
 <ul>
     <?php foreach ($users as $user) : ?>
         <li>
-            <a href="/user.php?id=<?= htmlspecialchars($user['id']) ?>">
-                <?echo htmlspecialchars($user['name']); ?>
+            <a href="/user.php?id=<?php echo htmlspecialchars($user['id']) ?>">
+                <?php echo htmlspecialchars($user['name']); ?>
             </a>
         </li>
     <?php endforeach; ?>
