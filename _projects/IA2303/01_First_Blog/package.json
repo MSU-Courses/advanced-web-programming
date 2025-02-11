@@ -1,6 +1,6 @@
 {
   "scripts": {
-    "style": "npx @tailwindcss/cli -i ./css/input.css -o ./css/output.css --watch"
+    "watch": "npx @tailwindcss/cli -i ./css/input.css -o ./css/output.css --watch"
   },
   "dependencies": {
     "@tailwindcss/cli": "^4.0.6",
