@@ -1,3 +1,9 @@
+<?php 
+if (!defined('PROJECT')) {
+    die();
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
