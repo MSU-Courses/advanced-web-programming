@@ -4,4 +4,5 @@ if (!defined('PROJECT')) {
 }
 ?>
 
+</body>
 </html>
