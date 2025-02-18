@@ -7,11 +7,11 @@ require_once './components/header.php';
 ?>
 
 <div id="app" class="container mx-auto py-8">
-    <section id="posts">
+    <section id="posts" class="p-4">
         <h1 class="font-mono text-3xl font-bold pb-3">#_posts</h1>
-        <div class="flex justify-between gap-3">
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
             <?php foreach ($posts as $post) : ?>
-                <div class="border border-gray-200 p-4 my-4 basis-1/3 rounded flex flex-col gap-4">
+                <div class="border border-gray-200 p-4 rounded flex flex-col gap-4 col-span-1">
                     <h2 class="font-medium text-2xl"><?php echo $post['title']; ?></h2>
                     <p><?php echo $post['content']; ?></p>
                     <i class="text-gray-400"><?php echo $post['date']; ?></i>
