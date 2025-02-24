@@ -19,7 +19,9 @@ if (!defined('APP_NAME')) {
 <body>
     <header class="border border-gray-200 py-3 px-8 lg:px-16">
         <div class="mx-auto flex justify-between items-center font-medium text-base">
-            <h1><?php echo APP_NAME; ?></h1>
+            <a href="/">
+                <h1><?php echo APP_NAME; ?></h1>
+            </a>
             <a href="#">
                 <button class="bg-blue-700 py-1 px-4 rounded-md text-white">Login</button>
             </a>
