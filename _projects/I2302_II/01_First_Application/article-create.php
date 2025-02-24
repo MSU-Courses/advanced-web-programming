@@ -4,12 +4,14 @@ define('APP_NAME', 'Blog');
 
 require_once './data/posts.php';
 
+require_once './handlers/post-handler.php';
+
 require_once './components/header.php';
 
 ?>
 
 <main class="container mx-auto py-6 px-8">
-    <form>
+    <form class="flex flex-col gap-3" method="POST" action="/article-create.php">
         <div>
             <label for="title" class="block font-bold text-xl">Title</label>
             <input type="text" id="title" name="title" class="border border-gray-300 rounded-md p-2 w-full mt-2">

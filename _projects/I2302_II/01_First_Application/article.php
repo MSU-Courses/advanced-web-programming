@@ -20,7 +20,9 @@ require_once './components/header.php';
 <article class="container mx-auto mt-6">
     <div class="flex flex-col gap-4 px-8">
         <div id="categories" class="flex gap-2">
-            <?php foreach ($post['categories'] as $category): ?>
+            <?php
+            sort($post['categories']);
+            foreach ($post['categories'] as $category): ?>
                 <span class="bg-gray-200 text-gray-600 px-2 py-1 rounded-md text-sm"><?php echo $category; ?></span>
             <?php endforeach; ?>
         </div>
