@@ -18,6 +18,11 @@ require_once './components/header.php';
 ?>
 
 <article class="container mx-auto flex flex-col gap-8 mt-8">
+    <div>
+        <?php foreach ($post['categories'] as $category) : ?>
+            <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2"><?php echo $category; ?></span>
+        <?php endforeach; ?>
+    </div>
     <h1 class="font-bold text-4xl font-mono"><?php echo $post['title']; ?></h1>
     <p class="text-lg"><?php echo $post['content']; ?></p>
     <i class="text-gray-400"><?php echo $post['date']->format('Y-m-d'); ?></i>
