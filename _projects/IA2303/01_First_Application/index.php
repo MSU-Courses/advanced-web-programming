@@ -1,4 +1,5 @@
 <?php
+
 define('PROJECT', 'Blog');
 
 require_once './data/posts.php';
