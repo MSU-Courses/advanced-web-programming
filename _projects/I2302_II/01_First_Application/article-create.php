@@ -16,17 +16,20 @@ require_once './components/header.php';
     <form class="flex flex-col gap-3" method="POST" action="/article-create.php">
         <div>
             <label for="title" class="block font-bold text-xl">Title</label>
-            <input type="text" id="title" name="title" class="border border-gray-300 rounded-md p-2 w-full mt-2">
+            <input type="text" id="title" name="title" class="border border-gray-300 rounded-md p-2 w-full mt-2"
+                value="<?php echo $_POST['title'] ?? ''; ?>">
             <?php renderErrorIfExist($errors, 'title') ?>
         </div>
         <div class="mt-4">
             <label for="content" class="block font-bold text-xl">Content</label>
-            <textarea id="content" name="content" class="border border-gray-300 rounded-md p-2 w-full h-32 mt-2"></textarea>
+            <textarea id="content" name="content" class="border border-gray-300 rounded-md p-2 w-full h-32 mt-2"><?php echo $_POST['content'] ?? ''; ?>
+            </textarea>
             <?php renderErrorIfExist($errors, 'content') ?>
         </div>
         <div class="mt-4">
             <label for="categories" class="block font-bold text-xl">Categories</label>
-            <input type="text" id="categories" name="categories" class="border border-gray-300 rounded-md p-2 w-full mt-2">
+            <input type="text" id="categories" name="categories" class="border border-gray-300 rounded-md p-2 w-full mt-2"
+            value="<?php echo $_POST['categories'] ?? ''; ?>">
             <i class="text-gray-500 text-sm">* Separate categories with commas (,)</i>
         </div>
         <div class="mt-4">
