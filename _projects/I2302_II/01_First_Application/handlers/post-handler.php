@@ -4,17 +4,40 @@ if (!defined('APP_NAME')) {
     die();
 }
 
+$errors = [];
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $posts[] = [
-        'title' => $_POST['title'],
-        'content' => $_POST['content'],
-        'date' => date('Y-m-d'),
-        'categories' => explode(',', $_POST['categories']),
-    ];
+    if (empty($_POST['title'])) {
+        $errors['title'] = 'Title is required';
+    }
 
-    file_put_contents('./data/posts.json', json_encode($posts));
+    if (empty($_POST['content'])) {
+        $errors['content'] = 'Content is required';
+    }
 
-    header('Location: /article.php?id=' . count($posts));
+    if (strlen($_POST['title']) > 255) {
+        $errors['title'] = 'Title is too long';
+    }
 
-    return;
+    if (strlen($_POST['content']) > 1000) {
+        $errors['content'] = 'Content is too long';
+    }
+
+    if (count($errors) === 0) {
+        $posts[] = [
+            'title' => htmlentities($_POST['title']),
+            'content' => htmlentities($_POST['content']),
+            'date' => date('Y-m-d'),
+            'categories' => empty($_POST['categories']) ?
+                ['Unknown'] :
+                explode(',', htmlentities(($_POST['categories']))),
+        ];
+
+        file_put_contents('./data/posts.json', json_encode($posts));
+
+        header('Location: /article.php?id=' . count($posts));
+
+        return;
+    }
+
 }
