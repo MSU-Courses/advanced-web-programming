@@ -29,6 +29,11 @@ class Config
     private const configDir = self::rootDir . self::sep . 'config';
 
     /**
+     * Template directory
+     */
+    public const templateDir = self::rootDir . self::sep . 'templates' . self::sep;
+
+    /**
      * Configuration of the application
      */
     private static $config = [];
@@ -43,7 +48,7 @@ class Config
      *
      * @return void
      */
-    public static function loadConfig()
+    public static function load()
     {
         $configFiles = array_diff(scandir(self::configDir), ['.', '..']);
 
