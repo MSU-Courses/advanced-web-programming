@@ -25,7 +25,7 @@ require_once './components/header.php';
     </div>
     <h1 class="font-bold text-4xl font-mono"><?php echo $post['title']; ?></h1>
     <p class="text-lg"><?php echo $post['content']; ?></p>
-    <i class="text-gray-400"><?php echo $post['date']->format('Y-m-d'); ?></i>
+    <i class="text-gray-400"><?php echo $post['date']; ?></i>
     <a class="text-blue-700 
         transition duration-300 ease-in-out
         transform hover:translate-x-1 hover:text-blue-900
