@@ -1,5 +1,8 @@
 <?php
 
-require_once '../components/header.php';
+require_once '../src/Core/Application.php';
+require_once '../src/Core/Template/Templater.php';
 
-echo "Hello, World";
+$app = new Application();
+
+$app->run();
