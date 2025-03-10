@@ -3,7 +3,6 @@
 namespace Core;
 
 class Application {
-    
     /**
      * Application entry point
      */
@@ -11,6 +10,5 @@ class Application {
         // Load configuration
         Config::loadConfig();
 
-        // Routes
     }
 }
