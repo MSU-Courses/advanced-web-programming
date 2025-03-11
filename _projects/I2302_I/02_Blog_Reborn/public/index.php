@@ -1,7 +1,16 @@
 <?php
 
+use Core\Templater\Template;
+use Core\Templater\Templater;
+
 require_once __DIR__ . '/../src/Core/Config.php';
+require_once __DIR__ . '/../src/Core/Templater/Templater.php';
 
-use Core\Config;
+$template = new Templater('../templates/');
 
-Config::load();
+$title = "TItle from DB";
+
+$template->renderPage('article/index', [
+    'title' => $title,
+    'posts' => 1,
+]);
