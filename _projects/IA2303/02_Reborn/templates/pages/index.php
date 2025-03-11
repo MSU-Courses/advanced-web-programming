@@ -1,3 +1,5 @@
+
+
 <div>
-    Hello, World!
+    Hello, <?php echo $title; ?>
 </div>

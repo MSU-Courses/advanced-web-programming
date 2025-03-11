@@ -2,6 +2,8 @@
 
 namespace Core;
 
+use Core\Templater\Template;
+
 class Application
 {
     /**
@@ -17,10 +19,33 @@ class Application
 
         switch ($uri['path']) {
             case '/':
-                require_once Config::templateDir . '/pages/index.php';
+                Template::render('index', ['title' => 'World!']);
                 break;
             case '/article':
-                require_once Config::templateDir . '/pages/article/index.php';
+                Template::render('article/index', [
+                    'posts' =>   [
+                        [
+                            'title' => 'Post 1',
+                            'content' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+                            'date' => '2021-01-01'
+                        ],
+                        [
+                            'title' => 'Post 2',
+                            'content' => 'Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+                            'date' => '2021-01-02'
+                        ],
+                        [
+                            'title' => 'Post 3',
+                            'content' => 'Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
+                            'date' => '2021-01-03'
+                        ],
+                        [
+                            'title' => 'Post 3',
+                            'content' => 'Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
+                            'date' => '2021-01-03'
+                        ],
+                    ]
+                ]);
                 break;
             default:
                 // 404
