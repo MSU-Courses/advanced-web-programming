@@ -1,16 +1,11 @@
 <?php
 
-use Core\Templater\Template;
-use Core\Templater\Templater;
+use Core\Application;
 
 require_once __DIR__ . '/../src/Core/Config.php';
+require_once __DIR__ . '/../src/Core/Application.php';
 require_once __DIR__ . '/../src/Core/Templater/Templater.php';
 
-$template = new Templater('../templates/');
+$app = new Application();
 
-$title = "TItle from DB";
-
-$template->renderPage('article/index', [
-    'title' => $title,
-    'posts' => 1,
-]);
+$app->load();
