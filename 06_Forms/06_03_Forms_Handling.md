@@ -505,7 +505,6 @@ require 'handler.php'; // Подключаем обработчик
 
 ```php
 <?php
-<?php
 // handler.php
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
