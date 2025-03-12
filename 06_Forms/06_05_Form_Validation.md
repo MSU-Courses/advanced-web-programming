@@ -331,8 +331,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
     <label for="name">Имя:</label>
     <input type="text" name="name" id="name" required>
+    <!-- Проверяем, если есть ошибки для поля "name" -->
     <?php if (!empty($errors['name'])): ?>
         <ul>
+            <!-- Выводим все ошибки для поля "name" -->
             <?php foreach ($errors['name'] as $error): ?>
                 <li><?php echo $error; ?></li>
             <?php endforeach; ?>
@@ -341,7 +343,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     <label for="email">Email:</label>
     <input type="email" name="email" id="email" required>
-    <?php if (!empty($errors['email'])): ?>
+    <?php if (!empty($errors['email'])): ?>А
         <ul>
             <?php foreach ($errors['email'] as $error): ?>
                 <li><?php echo $error; ?></li>
@@ -428,3 +430,5 @@ require_once 'functions.php';
     <button type="submit">Отправить</button>
 </form>
 ```
+
+[^1]: _How to Set up PHP Form Validation: PHP Script, Ajax, JavaScript, and Database Methods Explained_. mailtrap.io [online resource]. Available at: https://mailtrap.io/blog/php-form-validation/

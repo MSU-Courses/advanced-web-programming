@@ -218,3 +218,5 @@ exit;
 ```
 
 В этом случае текст `Hello, World!` уже был выведен, что привело к отправке заголовков ответа. Попытка изменить их с помощью header вызовет ошибку.
+
+[^1] _header_. php.net [online resource]. Available at: https://www.php.net/manual/en/function.header.php
