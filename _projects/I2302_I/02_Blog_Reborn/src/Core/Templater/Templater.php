@@ -48,6 +48,18 @@ class Templater
     }
 
     /**
+     * Renders a component template with the provided data.
+     * 
+     * @param string $componentName The name of the component file to render, located in the 'components' directory.
+     * @param array $data An associative array of data to be passed to the component. Default is an empty array.
+     * 
+     */
+    public function renderComponent(string $componentName, array $data = [])
+    {
+        echo $this->includeWithParams('components/' . $componentName, $data);
+    }
+
+    /**
      * Includes a layout file and passes the content to it.
      * 
      * @param string $content The content to include in the layout.
