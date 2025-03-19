@@ -6,7 +6,7 @@ require_once __DIR__ . '/../routes/web.php';
 $requestMethod = $_SERVER['REQUEST_METHOD'];
 
 // Get the request URI
-$requestUri = $_SERVER['REQUEST_URI'];
+$requestUri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
 
 // Dispatch the request
 $router->dispatch($requestMethod, $requestUri);

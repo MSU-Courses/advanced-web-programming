@@ -10,7 +10,7 @@
 
 ## Что такое единая точка входа?
 
-**Единая точка входа (Single Entry Point)** — это файл, который принимает и обрабатывает все входящие запросы к веб-приложению. Вместо того чтобы запрашивать разные файлы напрямую (`about.php`, `contact.php`), все запросы направляются на один файл (обычно `index.php`), который анализирует URL-адрес и решает, какую страницу или действие необходимо выполнить.
+**Единая точка входа (Single Entry Point)** — это файл, который принимает и обрабатывает все входящие запросы к веб-приложению. Вместо того чтобы запрашивать разные файлы напрямую (`about.php`, `contact.php`), все запросы направляются на один файл (обычно `index.php`), который анализирует URL-адрес и решает, какую страницу или действие необходимо выполнить [^1].
 
 ### Как это работает?
 
@@ -90,13 +90,42 @@ project/
 
 Для реализации маршрутизации в PHP можно использовать различные подходы. Рассмотрим некоторые из них.
 
-Для определения URL-адреса текущей страницы используется суперглобальный массив `$_SERVER['REQUEST_URI']`. Он содержит часть URL-адреса после домена и порта. 
+### Определение текущего URL-адреса
 
-_Например_:
+Для получения URL-адреса текущей страницы в PHP используется суперглобальный массив `$_SERVER`, а именно его элемент `$_SERVER['REQUEST_URI']`. Этот параметр содержит путь и строку запроса (если она есть) после доменного имени.
 
-- `http://example.com/about` → `$_SERVER['REQUEST_URI']` содержит `/about`
-- `http://example.com/article/15` → `$_SERVER['REQUEST_URI']` содержит `/article/15`
-- `http://example.com/contact?name=John` → `$_SERVER['REQUEST_URI']` содержит `/contact`
+#### Примеры работы `$_SERVER['REQUEST_URI']`
+
+| Полный URL                                | Значение `$_SERVER['REQUEST_URI']` |
+| ----------------------------------------- | ---------------------------------- |
+| `http://example.com/about`                | `/about`                           |
+| `http://example.com/article/15`           | `/article/15`                      |
+| `http://example.com/contact?name=John`    | `/contact?name=John`               |
+| `http://example.com/article?category=php` | `/article?category=php`            |
+
+> [!NOTE]  
+> `$_SERVER['REQUEST_URI']` возвращает путь и строку запроса, но не включает протокол (`http`/`https`) и домен.
+
+#### Получение пути без параметров
+
+Если необходимо получить только путь без строки запроса, можно использовать функцию `parse_url()` с параметром `PHP_URL_PATH`:
+
+```php
+<?php
+
+$url = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
+
+echo $url;
+```
+
+#### Примеры работы `parse_url()`
+
+| Полный URL                                | Значение `$url` |
+| ----------------------------------------- | --------------- |
+| `http://example.com/article?category=php` | `/article`      |
+| `http://example.com/contact?name=John`    | `/contact`      |
+
+Таким образом, `parse_url()` помогает извлекать только путь, игнорируя параметры запроса, что удобно для маршрутизации или анализа URL-адресов.
 
 ### Статические маршруты (на основе массива)
 
@@ -116,7 +145,7 @@ $routes = [
 ];
 
 // Получаем текущий URL
-$url = $_SERVER['REQUEST_URI'];
+$url = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
 
 $templatesDir = __DIR__ . '/../resources/views/';
 
@@ -143,7 +172,9 @@ if (array_key_exists($url, $routes)) {
 ```php
 <?php
 
-$url = $_SERVER['REQUEST_URI'];
+// public/index.php
+
+$url = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
 
 $templatesDir = __DIR__ . '/../resources/views/';
 
@@ -173,8 +204,10 @@ switch ($url) {
 ```php
 <?php
 
+// public/index.php
+
 // Получаем текущий URL
-$url = $_SERVER['REQUEST_URI'];
+$url = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
 
 $templatesDir = __DIR__ . '/../resources/views/';
 
@@ -202,6 +235,8 @@ _Например_,
 
 ```php
 <?php
+
+// public/index.php
 
 $routes = [
     '/' => function () {
@@ -232,7 +267,7 @@ foreach ($routes as $route => $action) {
 }
 
 http_response_code(404);
-require_once __DIR__ . '/../resources/views/errors/404.php';
+echo "<html><head><title>404 Not Found</title></head><body><h1>404 Not Found</h1></body></html>";
 ```
 
 ### Вынесение обработчиков маршрутов в отдельные файлы
@@ -261,6 +296,7 @@ function editArticle($articleId)
 <?php
 
 // public/index.php
+
 require_once __DIR__ . '/../src/handlers/article.php';
 
 $routes = [
@@ -286,7 +322,7 @@ foreach ($routes as $route => $action) {
 }
 
 http_response_code(404);
-require_once __DIR__ . '/../resources/views/errors/404.php';
+echo "<html><head><title>404 Not Found</title></head><body><h1>404 Not Found</h1></body></html>";
 ```
 
 ### Ограничения рассмотренных методов
@@ -295,3 +331,5 @@ require_once __DIR__ . '/../resources/views/errors/404.php';
 
 - Отсутствует поддержка обработки HTTP-методов (`GET`, `POST`, `PUT`, `DELETE`). В текущих реализациях маршруты определяются только по URL без учёта типа запроса.
 - Отсутствует параметризация и более сложная логика маршрутов, что затрудняет разработку масштабируемых приложений.
+
+[^1]: _Framework Fundamentals—Single Point of Entry_. medium.com [online resource]. Available at: https://medium.com/@KyleMinshall/intermediate-web-development-single-point-of-entry-cea15423d13e
