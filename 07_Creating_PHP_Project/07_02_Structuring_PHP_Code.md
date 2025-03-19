@@ -121,7 +121,7 @@ php -S localhost:8000 -t public/
     RewriteRule ^(.*)$ index.php?$1 [L,QSA]
    ```
 
-2. Перезапустите сервер.
+2. Перезапустите XAMPP.
 
 #### Директория `src`
 
