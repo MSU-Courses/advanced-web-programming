@@ -193,7 +193,7 @@ require_once '../includes/functions.php';
 
 ## Использование константы `__DIR__`
 
-Для упрощения работы с путями в PHP существует магическая константа `__DIR__`, которая возвращает абсолютный путь к текущему файлу. Это позволяет надежно подключать файлы независимо от того, откуда запускается скрипт.
+Для упрощения работы с путями в PHP существует магическая константа `__DIR__` [^5], которая возвращает абсолютный путь к текущему файлу. Это позволяет надежно подключать файлы независимо от того, откуда запускается скрипт.
 
 **Пример**. _Использование константы `__DIR__`_
 
@@ -244,3 +244,4 @@ require_once __DIR__ . '/../includes/functions.php';
 [^2]: _require_. php.net [online resource]. Available at: https://www.php.net/manual/ru/function.require.php
 [^3]: _include once_. php.net [online resource]. Available at: https://www.php.net/manual/ru/function.include-once.php
 [^4]: _require once_. php.net [online resource]. Available at: https://www.php.net/manual/ru/function.require-once.php
+[^5]: _Magic constants_. php.net [online resource]. Available at: https://www.php.net/manual/en/language.constants.magic.php
