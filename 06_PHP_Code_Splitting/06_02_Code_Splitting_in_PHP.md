@@ -60,7 +60,7 @@ echo sum(2, 3); // 5
 // functions.php
 
 require_once 'functions.php';
-require_once 'functions.php'; // Файл не будет подключён повторно
+require_once 'functions.php'; // Файл не будет подключен повторно
 ```
 
 ### Как работает подключение файлов?
