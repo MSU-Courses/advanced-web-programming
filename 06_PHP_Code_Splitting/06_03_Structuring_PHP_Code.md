@@ -112,16 +112,21 @@ php -S localhost:8000 -t public/
 
 Если вы используете _XAMPP_ (или другой аналогичный пакет) , где используется веб-сервер Apache, то настройку можно выполнить через `.htaccess`:
 
-1. Создайте файл `.htaccess` внутри папки `public/` и добавьте в него:
+1. Создайте файл `.htaccess` в корневой директории проекта:
 
    ```apache
     RewriteEngine On
-    RewriteCond %{REQUEST_FILENAME} !-f
+
+    # Перенаправляем все запросы в папку /public
+    RewriteCond %{REQUEST_URI} !^/public/
+    RewriteRule ^(.*)$ /public/$1 [L,QSA]
+
+    # Удаляем слэш в конце URL (опционально)
     RewriteCond %{REQUEST_FILENAME} !-d
-    RewriteRule ^(.*)$ index.php?$1 [L,QSA]
+    RewriteRule ^(.+)/$ /$1 [R=301,L]
    ```
 
-2. Перезапустите XAMPP.
+2. Перезапустите *XAMPP*.
 
 ### Директория `src`
 
