@@ -9,11 +9,15 @@ switch ($url) {
         $content = file_get_contents(Config::rootDir . '/templates/index.tpl');
         $article = "Article";
         $content = str_replace("<!-- article -->", "<div>$article</div>", $content);
-        require_once Config::rootDir . '/templates/layouts/default.layout.php';
+
+        $layout = file_get_contents(Config::rootDir . '/templates/layouts/default.layout.tpl');
+        $layout = str_replace("<!-- content -->", $content, $layout);
+
+        echo $layout;
         break;
     case '/about':
-        $content = file_get_contents(Config::rootDir . '/templates/about.tpl');
-        require_once Config::rootDir . '/templates/layouts/default.layout.php';
+        // $content = file_get_contents(Config::rootDir . '/templates/about.tpl');
+        // require_once Config::rootDir . '/templates/layouts/default.layout.php';
         break;
     default:
         echo "404";
