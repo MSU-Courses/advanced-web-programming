@@ -1,5 +1,10 @@
 <?php
 
+namespace App\Core;
+
+use App\Core\Router\Router;
+use App\Core\Template\Templater;
+
 /**
  * Class Application
  *
@@ -9,43 +14,19 @@ class Application
 {
     public function run()
     {
-        $templater = new Templater(__DIR__ . '/../../templates', __DIR__ .  '/../../public');
+        $templater = new Templater(Config::rootDir . 'templates');
 
         // Routing
         $uri = $_SERVER['REQUEST_URI'];
+        $method = $_SERVER['REQUEST_METHOD'];
+        
+        $this->route($uri, $method);
+    }
 
-        switch ($uri) {
-            case '/':
-                $title = 'My Blog!';
+    public function route(string $url, string $method)
+    {
+        require_once Config::rootDir . 'routes/routes.php';
 
-                $templater->renderPage('/index', [
-                    'title' => $title,
-                ]);
-
-                break;
-            case '/article':
-                $posts = [
-                    [
-                        'title' => 'My first post',
-                        'content' => 'This is my first post. Welcome!',
-                        'date' => '2021-01-01',
-                    ],
-                    [
-                        'title' => 'My second post',
-                        'content' => 'This is my second post. Welcome!',
-                        'date' => '2021-01-02',
-                    ],
-                    [
-                        'title' => 'My third post',
-                        'content' => 'This is my third post. Welcome!',
-                        'date' => '2021-01-03',
-                    ],
-                ];
-
-                $templater->renderPage('/article/index', compact('posts'));
-                break;
-            default:
-                // 404 error
-        }
+        Router::handle($url, $method);
     }
 }

@@ -1,20 +1,21 @@
 <?php
 
+namespace App\Core\Template;
+
+use App\Core\Config;
+
 class Templater
 {
     protected $templatePath;
-    protected $publicPath;
 
-    public function __construct(string $templatePath, string $publicPath)
+    public function __construct(string $templatePath)
     {
         $this->templatePath = $templatePath;
-        $this->publicPath = $publicPath;
     }
 
     public function getStyles()
     {
-        // todo: make config
-        $styles = scandir($this->publicPath . '/assets/styles');
+        $styles = scandir(Config::publicDir . '/assets/styles');
 
         $styles = array_filter($styles, function (string $style) {
             return strpos($style, '.css') !== false;
