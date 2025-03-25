@@ -1,8 +1,8 @@
 <?php
 
-namespace Core\Templater;
+namespace App\Core\Templater;
 
-use Core\Config;
+use App\Core\Config;
 
 class Template
 {

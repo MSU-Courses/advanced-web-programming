@@ -1,8 +1,9 @@
 <?php
 
-namespace Core;
+namespace App\Core;
 
-use Core\Templater\Template;
+use App\Core\Router\Router\Router;
+use App\Core\Templater\Template;
 
 class Application
 {
@@ -16,39 +17,10 @@ class Application
 
         // Routing
         $uri = parse_url($_SERVER['REQUEST_URI']);
+        $method = $_SERVER['REQUEST_METHOD'];
 
-        switch ($uri['path']) {
-            case '/':
-                Template::render('index', ['title' => 'World!']);
-                break;
-            case '/article':
-                Template::render('article/index', [
-                    'posts' =>   [
-                        [
-                            'title' => 'Post 1',
-                            'content' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-                            'date' => '2021-01-01'
-                        ],
-                        [
-                            'title' => 'Post 2',
-                            'content' => 'Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
-                            'date' => '2021-01-02'
-                        ],
-                        [
-                            'title' => 'Post 3',
-                            'content' => 'Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
-                            'date' => '2021-01-03'
-                        ],
-                        [
-                            'title' => 'Post 3',
-                            'content' => 'Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
-                            'date' => '2021-01-03'
-                        ],
-                    ]
-                ]);
-                break;
-            default:
-                // 404
-        }
+        require_once Config::rootDir . '/routes/routes.php';
+
+        Router::route($uri['path'], $method);
     }
 }
