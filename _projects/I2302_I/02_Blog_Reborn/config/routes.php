@@ -1,6 +1,6 @@
 <?php
 
-use Http\Handlers\HomeHandler;
+use App\Http\Handlers\HomeHandler;
 
 return [
     '/' => [HomeHandler::class, 'home'],

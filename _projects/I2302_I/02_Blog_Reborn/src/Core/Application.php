@@ -1,11 +1,8 @@
 <?php
 
-namespace Core;
+namespace App\Core;
 
-use Core\Templater\Templater;
-
-
-
+use App\Core\Templater\Templater;
 
 class Application
 {

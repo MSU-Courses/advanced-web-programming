@@ -1,7 +1,7 @@
 <?php
 
-use Core\Application;
-use Core\Config;
+use App\Core\Application;
+use App\Core\Config;
 
 require_once __DIR__ . '/../src/Core/Config.php';
 require_once __DIR__ . '/../src/Core/Application.php';

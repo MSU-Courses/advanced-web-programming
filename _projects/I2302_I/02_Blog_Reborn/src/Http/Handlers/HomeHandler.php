@@ -1,6 +1,6 @@
 <?php
 
-namespace Http\Handlers;
+namespace App\Http\Handlers;
 
 class HomeHandler
 {

@@ -1,6 +1,6 @@
 <?php
 
-namespace Core\Templater;
+namespace App\Core\Templater;
 
 /**
  * Class Templater
