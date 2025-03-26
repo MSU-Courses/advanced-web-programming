@@ -384,9 +384,7 @@ echo renderTemplate("list.tpl", [
     <main>{{content}}</main>
 
     <footer>
-      &copy;
-      <?= date('Y'); ?>
-      Мой сайт
+      &copy; {{page_title}}
     </footer>
   </body>
 </html>
