@@ -365,7 +365,7 @@ echo renderTemplate("list.tpl", [
 
 Файл `layout.tpl`. Содержит общую структуру страницы:
 
-```php
+```html
 <!DOCTYPE html>
 <html lang="ru">
   <head>
