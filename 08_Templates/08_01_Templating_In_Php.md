@@ -374,7 +374,7 @@ echo renderTemplate("list.tpl", [
   </head>
   <body>
     <header>
-      <h1>Мой сайт</h1>
+      <h1>{{page_title}}</h1>
       <nav>
         <a href="/">Главная</a> |
         <a href="/about.php">О нас</a>
