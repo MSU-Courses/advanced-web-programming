@@ -227,14 +227,14 @@ _Недостатки_:
 
 ```html
 <!-- welcome.tpl: HTML-шаблон с метками -->
-<h1>Здравствуйте, {{USER_NAME}}!</h1>
-<p>Добро пожаловать на сайт <strong>{{SITE_NAME}}</strong>.</p>
+<h1>Здравствуйте, {{username}}!</h1>
+<p>Добро пожаловать на сайт <strong>{{site_name}}</strong>.</p>
 ```
 
-В этом шаблоне `{{USER_NAME}}` и `{{SITE_NAME}}` являются метками (_placeholders_), которые мы будем заменять на реальные данные.
+В этом шаблоне `{{username}}` и `{{site_name}}` являются метками (_placeholders_), которые мы будем заменять на реальные данные.
 
 > [!TIP]
-> Метки можно обозначать разными способами. Мы выбрали двойные фигурные скобки для наглядности, но также можно использовать HTML-комментарии (`<!-- USER_NAME -->`) или любые другие символы, чтобы избежать конфликтов с другим кодом.
+> Метки можно обозначать разными способами. Мы выбрали двойные фигурные скобки для наглядности, но также можно использовать HTML-комментарии (`<!-- username -->`) или любые другие символы, чтобы избежать конфликтов с другим кодом.
 
 Теперь создадим PHP-скрипт, который будет загружать шаблон, находить метки и заменять их на реальные значения:
 
@@ -246,7 +246,7 @@ _Недостатки_:
 <?php
 // Определяем переменные для подстановки в шаблон
 $userName = "Ivan";
-$siteName = "MySite";
+$siteName = "my-blog.md";
 
 // Загружаем шаблон из файла
 $template = file_get_contents("welcome.tpl");
@@ -256,8 +256,8 @@ if ($templateContent === false) {
 
 // Заменяем метки на реальные данные
 $html = str_replace(
-    ["{{USER_NAME}}", "{{SITE_NAME}}"],   // Массив меток
-    [$userName, $siteName],               // Массив значений
+    ["{{username}}", "{{site_name}}"],   // Массив меток
+    [$userName,      $siteName],               // Массив значений
     $template
 );
 
@@ -274,8 +274,8 @@ echo $html;
 На выходе получится следующий HTML-код:
 
 ```html
-<h1>Здравствуйте, Иван!</h1>
-<p>Добро пожаловать на сайт <strong>МойСайт</strong>.</p>
+<h1>Здравствуйте, Ivan!</h1>
+<p>Добро пожаловать на сайт <strong>my-blog.md</strong>.</p>
 ```
 
 ### Функция для рендеринга шаблонов
@@ -318,8 +318,8 @@ $userName = "Ivan";
 $siteName = "my-blog.md";
 
 echo renderTemplate("welcome.tpl", [
-    "USER_NAME" => $userName,
-    "SITE_NAME" => $siteName
+    "username" => $userName,
+    "site_name" => $siteName
 ]);
 ```
 
@@ -333,7 +333,7 @@ echo renderTemplate("welcome.tpl", [
 
 ```html
 <h2>Список продуктов</h2>
-{{PRODUCT_LIST}}
+{{product_list}}
 ```
 
 Файл _index.php_. Рендеринг шаблона с динамическим списком:
@@ -353,7 +353,7 @@ $productList .= "</ul>";
 
 // Рендерим шаблон с подстановкой списка
 echo renderTemplate("list.tpl", [
-    "PRODUCT_LIST" => $productList
+    "product_list" => $productList
 ]);
 ```
 
@@ -365,12 +365,12 @@ echo renderTemplate("list.tpl", [
 
 Файл `layout.tpl`. Содержит общую структуру страницы:
 
-```html
+```php
 <!DOCTYPE html>
 <html lang="ru">
   <head>
     <meta charset="UTF-8" />
-    <title>{{PAGE_TITLE}}</title>
+    <title>{{page_title}}</title>
   </head>
   <body>
     <header>
@@ -381,11 +381,11 @@ echo renderTemplate("list.tpl", [
       </nav>
     </header>
 
-    <main>{{PAGE_CONTENT}}</main>
+    <main>{{content}}</main>
 
     <footer>
       &copy;
-      <?php echo date('Y'); ?>
+      <?= date('Y'); ?>
       Мой сайт
     </footer>
   </body>
@@ -396,7 +396,7 @@ echo renderTemplate("list.tpl", [
 
 ```html
 <h2>Добро пожаловать!</h2>
-<p>Привет, {{USER_NAME}}! Рады видеть вас на нашем сайте.</p>
+<p>Привет, {{username}}! Рады видеть вас на нашем сайте.</p>
 ```
 
 Файл `index.php`. Рендеринг страницы с использованием layout:
@@ -410,9 +410,9 @@ $pageTitle = "my-blog.md";
 
 // Загружаем layout-шаблон
 $layout = renderTemplate("layout.tpl", [
-    "{{PAGE_TITLE}}" => $pageTitle,
-    "{{PAGE_CONTENT}}" => renderTemplate("index.tpl", [
-        "{{USER_NAME}}" => $userName
+    "page_title" => $pageTitle,
+    "content" => renderTemplate("index.tpl", [
+        "username" => $userName
     ])
 ]);
 
@@ -643,6 +643,28 @@ _Недостатки_:
 2. **Отсутствие кэширования**. При рендеринге сложных страниц каждый раз формируется новый HTML-код, что может замедлить работу при большом количестве пользователей.
 3. **Смешивание логики и представления**. Несмотря на использование функции-шаблонизатора, в шаблонах всё равно могут присутствовать переменные и простые конструкции PHP. Это приводит к тому, что логика и представление не полностью разделены, что может затруднить поддержку кода.
 
+### Альтернативный синтаксис PHP в шаблонах
+
+При использовании PHP-кода внутри HTML (как в наших шаблонах) рекомендуется использовать альтернативный синтаксис для улучшения читаемости и уменьшения количества скобок `{}`.
+
+- `<?php echo $var; ?>` можно заменить на `<?= $var; ?>`.
+- `<?php if ($condition): ?>` и `<?php endif; ?>` можно заменить на `<?php if ($condition): ?>` и `<?php endif; ?>`.
+- `<?php foreach ($items as $item): ?>` и `<?php endforeach; ?>` можно заменить на `<?php foreach ($items as $item): ?>` и `<?php endforeach; ?>`.
+- ...
+
+Это улучшает читаемость HTML-шаблона, убирая лишние символы и делая структуру более явной.
+
+## Безопасность при выводе данных в шаблонах
+
+Одной из самых распространённых уязвимостей при формировании HTML-кода является XSS (Cross-Site Scripting) [^4]. Эта уязвимость возникает, когда злоумышленник вводит в приложение вредоносные данные, содержащие, например, теги `<script>`. Если такие данные попадают на страницу без должного экранирования, они выполняются в браузере пользователя, что может привести к утечке данных или другим атакам.
+
+Чтобы избежать подобных уязвимостей, необходимо тщательно экранировать все данные, которые выводятся в шаблонах и могут содержать пользовательский ввод — например, данные из формы, URL или базы данных.
+
+Для экранирования специальных символов HTML в PHP используются функции `htmlspecialchars()` и `htmlentities()`. Эти функции преобразуют потенциально опасные символы (такие как `<`, `>`, `&`, `"` и `'`) в безопасные HTML-сущности, предотвращая выполнение вредоносного кода.
+
+Применяя экранирование на этапе вывода данных, вы значительно снижаете риск XSS-атак и делаете своё приложение безопаснее.
+
 [^1]: _Шаблонизация в PHP_. maxsite.org [online resource]. Available at: https://maxsite.org/2024/templating-in-php
 [^2]: _Separation of Concerns in Software Design_. nalexn.github.io [online resource]. Available at: https://nalexn.github.io/separation-of-concerns/
 [^3]: _Шаблонизация в PHP_. htmlacademy.ru [online resource]. Available at: https://htmlacademy.ru/blog/php/templates
+[^4]: _Cross-site scripting (XSS)_. mdn [online resource]. Available at: https://developer.mozilla.org/en-US/docs/Web/Security/Attacks/XSS
