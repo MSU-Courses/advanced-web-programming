@@ -383,9 +383,7 @@ echo renderTemplate("list.tpl", [
 
     <main>{{content}}</main>
 
-    <footer>
-      &copy; {{page_title}}
-    </footer>
+    <footer>&copy; {{page_title}}</footer>
   </body>
 </html>
 ```
@@ -629,7 +627,6 @@ function renderPage(string $page, array $vars = [], string $layout = 'layout.php
 echo renderPage('posts.php', ['posts' => $posts, 'pageTitle' => 'Главная - Мой блог']);
 ```
 
-
 ### Альтернативный синтаксис PHP в шаблонах
 
 При использовании PHP-кода внутри HTML (как в наших шаблонах) рекомендуется использовать альтернативный синтаксис для улучшения читаемости и уменьшения количества скобок `{}`.
@@ -667,7 +664,162 @@ _Недостатки_:
 
 Применяя экранирование на этапе вывода данных, вы значительно снижаете риск XSS-атак и делаете своё приложение безопаснее.
 
+## Существующие шаблонизаторы в PHP
+
+В PHP существует множество популярных шаблонизаторов, которые упрощают процесс создания динамических страниц. В данной главе будут рассмотрены два шаблонизатора: _Twig_ и _Smarty_.
+
+### Twig [^5]
+
+**Twig** — это современный шаблонизатор для PHP, разработанный компанией SensioLabs. Он предоставляет мощные инструменты для работы с шаблонами, включая условия, циклы, наследование шаблонов и многое другое. Twig позволяет создавать безопасные и производительные шаблоны, особенно при работе с большими объемами данных.
+
+#### Основные возможности Twig
+
+- **Наследование шаблонов**. Возможность создавать базовые шаблоны и переопределять их в дочерних.
+- **Условия и циклы**. Поддержка конструкций if, for, while и других.
+- **Фильтрация и преобразование данных**. Использование встроенных и пользовательских фильтров.
+- **Безопасность**. Автоматическое экранирование выходных данных для предотвращения XSS-атак.
+- **Кэширование**. Возможность кэширования с целью повышения производительности.
+
+#### Пример использования Twig
+
+```php
+$loader = new \Twig\Loader\FilesystemLoader('templates');
+$twig = new \Twig\Environment($loader, [
+    'cache' => 'cache',
+]);
+
+echo $twig->render('index.twig.html', [
+  'name' => 'John Doe',
+  'posts' => [
+    ['title' => 'First post', 'content' => 'Content of the first post'],
+    ['title' => 'Second post', 'content' => 'Content of the second post'],
+  ],
+]);
+```
+
+Файл `layout.twig.html`:
+
+```html
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <title>{% block title %}my-blog{% endblock %}</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="main-header">
+      <h1>Мой блог</h1>
+      <nav>
+        <a href="/">Главная</a> |
+        <a href="/about.php">О нас</a>
+      </nav>
+    </header>
+    <div class="container">{% block content %}{% endblock %}</div>
+    <footer class="main-footer">
+      <p>© 2025 Мой блог. Все права защищены.</p>
+    </footer>
+  </body>
+</html>
+```
+
+Файл `index.twig.html`:
+
+```html
+{% extends 'layout.twig.html' %}
+
+{% block title %}Главная - Мой блог{% endblock %}
+
+{% block content %}
+<h2>Последние записи</h2>
+<div class="posts-list">
+    {% for post in posts %}
+        {% include 'post_item.twig.html' with {'post': post} %}
+    {% endfor %}
+</div>
+{% endblock %}
+```
+
+### Smarty [^6]
+
+**Smarty** — один из старейших и наиболее популярных шаблонизаторов в мире PHP. Он предлагает богатый набор функций и гибкость при создании шаблонов.
+
+#### Основные возможности Twig
+
+- **Поддержка условий и циклов**. Позволяет легко управлять отображением данных.
+- **Кэширование**. Повышает производительность за счет хранения готовых шаблонов.
+- **Фильтры и модификаторы**. Возможность обработки данных перед выводом.
+- **Наследование шаблонов**. Создание и использование базовых шаблонов.
+
+#### Пример использования Smarty
+
+```php
+<?php
+
+require_once '/path/to/smarty/libs/Smarty.class.php';
+
+$smarty = new Smarty();
+$smarty->setTemplateDir('/some/template/dir');
+$smarty->setConfigDir('/some/config/dir');
+$smarty->setCompileDir('/some/compile/dir');
+$smarty->setCacheDir('/some/cache/dir');
+
+$smarty->assign('name', 'John Doe');
+$smarty->assign('posts', [
+    ['title' => 'First post', 'content' => 'Content of the first post'],
+    ['title' => 'Second post', 'content' => 'Content of the second post'],
+]);
+$smarty->display('index.tpl');
+```
+
+Файл `layout.tpl`:
+
+```html
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>{block name=title}my-blog{/block}</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<header class="main-header">
+    <h1>Мой блог</h1>
+    <nav>
+        <a href="/">Главная</a> |
+        <a href="/about.php">О нас</a>
+    </nav>
+</header>
+<div class="container">
+    {block name="content"}{/block}
+</div>
+<footer class="main-footer">
+    <p>© 2025 Мой блог. Все права защищены.</p>
+</footer>
+</body>
+</html>
+```
+
+Файл `index.tpl`:
+
+```html
+{extends file='layout.tpl'}
+
+{block name=title}Главная - Мой блог{/block}
+
+{block name=content}
+<h2>Последние записи</h2>
+<div class="posts-list">
+    {foreach $posts as $post}
+        {include file='post_item.tpl' post=$post}
+    {/foreach}
+</div>
+{/block}
+```
+
 [^1]: _Шаблонизация в PHP_. maxsite.org [online resource]. Available at: https://maxsite.org/2024/templating-in-php
 [^2]: _Separation of Concerns in Software Design_. nalexn.github.io [online resource]. Available at: https://nalexn.github.io/separation-of-concerns/
 [^3]: _Шаблонизация в PHP_. htmlacademy.ru [online resource]. Available at: https://htmlacademy.ru/blog/php/templates
 [^4]: _Cross-site scripting (XSS)_. mdn [online resource]. Available at: https://developer.mozilla.org/en-US/docs/Web/Security/Attacks/XSS
+[^5]: _Twig_. twig.symfony.com [online resource]. Available at: https://twig.symfony.com/
+[^6]: _Smarty_. smarty.net [online resource]. Available at: https://www.smarty.net/
