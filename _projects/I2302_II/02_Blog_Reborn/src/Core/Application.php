@@ -14,7 +14,7 @@ class Application
 {
     public function run()
     {
-        $templater = new Templater(Config::rootDir . 'templates');
+        $templater = Templater::getInstance(Config::rootDir . 'templates');
 
         // Routing
         $uri = $_SERVER['REQUEST_URI'];

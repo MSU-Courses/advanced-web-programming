@@ -8,6 +8,17 @@ class Templater
 {
     protected $templatePath;
 
+    private static $instance;
+
+    public static function getInstance(string $templatePath = "")
+    {
+        if (self::$instance === null) {
+            self::$instance = new self($templatePath);
+        }
+
+        return self::$instance;
+    }
+
     public function __construct(string $templatePath)
     {
         $this->templatePath = $templatePath;
