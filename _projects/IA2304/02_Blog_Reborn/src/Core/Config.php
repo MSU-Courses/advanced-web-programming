@@ -1,5 +1,7 @@
 <?php
 
+namespace App\Core;
+
 class Config
 {
     /**
@@ -16,4 +18,9 @@ class Config
      * @var string public directory path
      */
     public const publicDir = self::rootDir . 'public' . self::sep;
+
+    /**
+     * @var string route directory path
+     */
+    public const routeDir = self::rootDir . 'routes' . self::sep;
 }
