@@ -15,10 +15,11 @@ class Application
         $this->loadTemplate();
 
         $url = $_SERVER["REQUEST_URI"];
+        $method = $_SERVER["REQUEST_METHOD"];
 
         Router::load();
 
-        Router::route($url);
+        Router::route($url, $method);
 
         // TODO: Load Router
 
