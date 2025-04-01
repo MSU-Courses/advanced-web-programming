@@ -13,4 +13,9 @@ class HomeHandler
     {
         echo 'About Us';
     }
+
+    public static function show(int $id, string $name)
+    {
+        echo 'Store' . $id . " " . $name;
+    }
 }

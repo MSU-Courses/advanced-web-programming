@@ -16,8 +16,8 @@ class Router
     public static function route($uri, $method)
     {
         foreach (self::$routes as $route) {
-            if ($route->route === $uri && $route->method->value === $method) {
-                call_user_func($route->handler);
+            if ($route->matches($uri, HTTPMethod::tryFrom($method))) {
+                $route->execute();
                 return;
             }
         }

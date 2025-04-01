@@ -22,7 +22,7 @@ class Config
      * 
      * @var string
      */
-    private const rootDir = __DIR__ . self::sep . '..' . self::sep . '..';
+    public const rootDir = __DIR__ . self::sep . '..' . self::sep . '..';
 
     /**
      * Configuration directory

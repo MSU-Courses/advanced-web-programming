@@ -7,9 +7,7 @@ class HomeHandler
 {
     public function home()
     {
-        $templater = new Templater(Config::rootDir . 'templates');
-
-        return $templater->renderPage('/index', [
+        return Templater::getInstance()->renderPage('/index', [
             'title' => 'Home Page',
             'content' => 'Welcome to the Home Page'
         ]);
@@ -17,6 +15,11 @@ class HomeHandler
 
     public function about()
     {
-        echo 'About Page';
+        $templater = new Templater(Config::rootDir . 'templates');
+
+        return $templater->renderPage('/index', [
+            'title' => 'Home Page',
+            'content' => 'Welcome to the Home Page'
+        ]);
     }
 }
