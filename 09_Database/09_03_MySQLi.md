@@ -330,5 +330,5 @@ if (mysqli_affected_rows($conn) > 0) {
 > [!WARNING]
 > Всегда проверяйте наличие условия `WHERE` в запросах на обновление и удаление. Отсутствие этого условия может привести к критическим последствиям. Например, запрос `DELETE FROM users` удалит всех пользователей из таблицы. Поэтому перед выполнением запросов стоит внимательно проверять логику и значения переменных.
 
-[^1]: _Работа с MySQL в PHP_. htmlacademy [online resource]. Available at: https://htmlacademy.ru/blog/php/mysql˝
+[^1]: _Работа с MySQL в PHP_. htmlacademy [online resource]. Available at: https://htmlacademy.ru/blog/php/mysql
 [^2]: _MySQLi_. php.net [online resource]. Available at: https://www.php.net/manual/ru/book.mysqli.php
