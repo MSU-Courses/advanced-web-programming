@@ -22,19 +22,30 @@
       CREATE TABLE recipes (
       id INT AUTO_INCREMENT PRIMARY KEY,
       title VARCHAR(255) NOT NULL,
-      category VARCHAR(100),
+      category INT NOT NULL,
       ingredients TEXT,
       description TEXT,
       tags TEXT,
       steps TEXT,
+      created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+      FOREIGN KEY (category) REFERENCES categories(id) ON DELETE CASCADE
+   );
+   ```
+
+4. Создайте таблицу `categories` со следующей структурой:
+
+   ```sql
+      CREATE TABLE categories (
+      id INT AUTO_INCREMENT PRIMARY KEY,
+      name VARCHAR(100) NOT NULL UNIQUE,
       created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
    );
    ```
 
 > [!NOTE]
-> По желанию можно создать отдельные таблицы `categories` и `steps`, связав их с таблицей `recipes` с помощью внешних ключей.
+> По желанию можно создать отдельные таблицы `steps` и `tags`, связав их с таблицей recipes с помощью внешних ключей.
 
-4. _Дополнительное задание_. Рекомендуется использовать миграции для создания таблиц. Для этого можно применить сторонние библиотеки, например, `migrate` [^1].
+1. _Дополнительное задание_. Рекомендуется использовать миграции для создания таблиц. Для этого можно применить сторонние библиотеки, например, `migrate` [^1].
 
 ### Задание 2. Архитектура и шаблонизация
 
