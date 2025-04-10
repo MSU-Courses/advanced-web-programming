@@ -9,14 +9,14 @@
 
 ## Аутентификация по логину и паролю с использованием сессий
 
-Наиболее распространенная схема – пользователь вводит логин и пароль. Сервер проверяет эти данные по базе пользователей. Если они совпадают – пользователь считается подлинным, и ему открывается доступ к закрытым разделам.
+Наиболее распространенная схема аутентификации является аутентификация по логину и паролю с использованием сессий.
 
 **Логин** - это уникальный идентификатор пользователя, который он использует для входа в систему. Обычно это уникальное имя (`username`) пользователя или адрес электронной почты.
 
 > [!TIP]
 > Связка логин-пароль также называется **учётными данными** (от англ. **credentials**). Этот термин часто используется в документации и системах аутентификации.
 
-### Структура базы данных
+### Структура таблиц базы данных
 
 Для хранения информации о пользователях обычно используется таблица `users` со следующими полями:
 
@@ -78,7 +78,6 @@ if (password_verify($inputPassword, $storedHash)) {
 
 ### Процесс регистрации
 
-
 **Регистрация пользователя** — это процесс создания новой учётной записи, позволяющей получить доступ к закрытым разделам сайта или приложения.
 
 Регистрация обычно включает следующие шаги:
@@ -93,17 +92,21 @@ if (password_verify($inputPassword, $storedHash)) {
 ```php
 <?php
 
+/*
+   Вспомогательные функции
+*/
+
 /**
  * Проверяет, существует ли пользователь с заданным логином.
  *
  * @param string $username Логин пользователя
  * @return bool
  */
-function userExists(string $login): bool {
+function userExists(string $email): bool {
     global $pdo;
 
-    $stmt = $pdo->prepare("SELECT 1 FROM users WHERE username = ? LIMIT 1");
-    $stmt->execute([$login]);
+    $stmt = $pdo->prepare("SELECT 1 FROM users WHERE email = ? LIMIT 1");
+    $stmt->execute([$email]);
 
     return (bool) $stmt->fetchColumn();
 }
@@ -114,21 +117,18 @@ function userExists(string $login): bool {
 
 session_start();
 
-require_once 'database.php'; // Подключение к базе и вспомогательные функции
-
 $errors = [];
 
-$username = $_POST['username'] ?? '';
-$password = $_POST['password'] ?? '';
 $email = $_POST['email'] ?? '';
+$password = $_POST['password'] ?? '';
 
 // Простая валидация
-if (empty($username) || empty($password) || empty($email)) {
+if (empty($password) || empty($email)) {
     $errors[] = "Все поля обязательны для заполнения.";
 }
 
 // Проверка уникальности логина
-if (userExists($username)) {
+if (userExists($email)) {
     $errors[] = "Пользователь с таким логином уже существует.";
 }
 
@@ -137,11 +137,12 @@ if (empty($errors)) {
     $passwordHash = password_hash($password, PASSWORD_DEFAULT);
 
     // Сохранение пользователя в базе данных
-    $stmt = $pdo->prepare("INSERT INTO users (username, password, email) VALUES (?, ?, ?)");
-    $stmt->execute([$username, $passwordHash, $email]);
+    $stmt = $pdo->prepare("INSERT INTO users (email, password) VALUES (?, ?, ?)");
+    $stmt->execute([$email, $passwordHash]);
 
     // Перенаправление на страницу входа
     header('Location: /login.php');
+
     exit;
 }
 ```
@@ -164,6 +165,10 @@ if (empty($errors)) {
 ```php
 <?php
 
+/*
+   Вспомогательные функции
+*/
+
 /**
  * Поиск пользователя по логину
  *
@@ -171,9 +176,10 @@ if (empty($errors)) {
  *
  * @return array|null
  */
-function findUserByUsername(string $username) {
+function findUserByUsername(string $username, $columns = ['*']) {
     global $pdo;
-    $stmt = $pdo->prepare("SELECT * FROM users WHERE username = ?");
+    $selectFields = implode(',', $columns);
+    $stmt = $pdo->prepare("SELECT {$selectFields} FROM users WHERE username = ?");
     $stmt->execute([$username]);
     return $stmt->fetch();
 }
@@ -190,16 +196,12 @@ $errors = [];
 $username = $_POST['username'];
 $password = $_POST['password'];
 
-// 1. Найти пользователя по имени (например, запрос к базе данных):
+// 1. Найти пользователя по имени (например, запрос к базе данных)
 $user = findUserByUsername($username);
 
-// 2. Проверить, существует ли пользователь:
-if (!$user) {
-   $errors[] = "Неверный логин или пароль";
-}
-
-// 3. Проверить хэш пароля:
-if (!password_verify($password, $user['password'])) {
+// 2. Проверить, существует ли пользователь
+// 3. Проверить хэш пароля
+if (!$user || !password_verify($password, $user['password'])) {
    $errors[] = "Неверный логин или пароль";
 }
 
@@ -207,12 +209,10 @@ if (count($errors) == 0) {
    // 4. Если нет ошибок, сохранить данные пользователя в сессии:
    $_SESSION['user'] = [
       'id' => $user['id'],
-      'username' => $user['username'],
       'email' => $user['email'],
-      'role' => $user['role'],
    ];
 
-   // 5. Перенаправить на главную страницу:
+   // 5. Перенаправить пользователю на другую страницу
    header('Location: /');
    exit;
 }
@@ -220,10 +220,9 @@ if (count($errors) == 0) {
 
 В данном примере:
 
-- Функция `findUserByUsername()` должна вернуть данные пользователя (_например_, из базы данных) или `null`, если пользователь не найден.
+- Функция `findUserByUsername()` должна вернуть `id`, `пароль` и `email` пользователя или `null`, если пользователь не найден.
 - Функция `password_verify()` сравнивает введённый пароль с хешем, сохранённым в базе. Это обеспечивает безопасность и защищённость от утечек.
 - После успешной аутентификации в `$_SESSION` сохраняется массив с основными данными пользователя. Это позволяет определять, авторизован ли он, на других страницах.
-- Обычно в сессии достаточно хранить уникальный идентификатор пользователя и ключевые атрибуты (_например_, роль или имя).
 
 При обработке ошибок во время авторизации не рекомендуется сообщать пользователю, что именно было введено неверно — логин или пароль. Сообщения вроде «_Пользователь не найден_» или «_Неверный пароль_» позволяют злоумышленнику поэтапно угадывать данные и выяснять, какие логины существуют в системе. Вместо этого следует использовать общее сообщение, например: _Неверный логин или пароль_.
 
@@ -235,13 +234,13 @@ if (count($errors) == 0) {
 
 После данного процесса пользователь считается **аутентифицированным**. У него активна сессия PHP (установлен `PHPSESSID` cookie, связанный с данными на сервере), в которой сохранен идентификатор пользователя.
 
-### Эффективное управление данными пользователя через сессию
+### Эффективное управление данными пользователя через сессию — I часть
 
-Хранение всех данных пользователя в сессии — таких как `имя`, `роль`, `email` и т. д. — не является хорошей практикой.
+Хранение всех пользовательских данных в сессии — таких как `имя`, `email` и т. д. — не является хорошей практикой. Подобный подход может привести к несоответствию актуального состояния данных.
 
-Такая реализация может привести к проблемам с актуальностью данных. _Представим ситуацию_: пользователь вошёл в систему, и его данные были сохранены в сессии. Позже администратор изменяет `роль` или `email` этого пользователя. Но сессия уже содержит устаревшую информацию, и она будет использоваться до завершения сеанса, что приведёт к неконсистентности данных.
+_Представим ситуацию_: пользователь вошёл в систему, и его данные были сохранены в сессии. Позже администратор изменяет `email` этого пользователя, однако в сессии всё ещё хранится устаревшая информация. В результате система будет использовать неверные данные вплоть до завершения сессии, что приведёт к несогласованности и потенциальным ошибкам.
 
-В сессии следует сохранять только уникальный идентификатор пользователя (`user_id`). Все остальные данные — `имя`, `роль`, `email` и прочее — следует получать из базы данных по этому идентификатору при каждом запросе, когда они действительно нужны.
+Рекомендуется сохранять в сессии только уникальный идентификатор пользователя (`user_id`). Все остальные данные — `имя`, `роль`, `email` и т. д. — следует получать из базы данных по этому идентификатору при необходимости.
 
 **Пример**. _Аутентификация без хранения лишних данных в сессии_
 
@@ -250,17 +249,6 @@ if (count($errors) == 0) {
 
 session_start();
 
-/**
- * Установить сессию пользователя
- *
- * @param int $userId Идентификатор пользователя
- *
- * @return void
- */
-function setUserSession(int $userId) {
-   $_SESSION['user_id'] = $userId;
-}
-
 // Массив для ошибок
 $errors = [];
 
@@ -268,6 +256,7 @@ $username = $_POST['username'];
 $password = $_POST['password'];
 
 // Поиск пользователя по логину
+// В данном случае можно возвращать только id и хэш пароля
 $user = findUserByUsername($username);
 
 // Проверка логина и пароля
@@ -277,7 +266,7 @@ if (!$user || !password_verify($password, $user['password'])) {
 
 // При успешной аутентификации сохраняется только user_id
 if (empty($errors)) {
-   setUserSession($user['id']);
+   $_SESSION['user_id'] = $userId;
    // Регенерация ID сессии для безопасности
    session_regenerate_id();
    header('Location: /');
@@ -290,14 +279,17 @@ if (empty($errors)) {
 ```php
 <?php
 
-session_start();
+/*
+   Вспомогательные функции
+*/
 
 /**
  * Получить пользователя по ID
  */
-function findUserById(int $userId) {
+function findUserById(int $userId, array $columns = ['*']) {
     global $pdo;
-    $stmt = $pdo->prepare("SELECT * FROM users WHERE id = ?");
+    $selectFields = implode(',', $columns);
+    $stmt = $pdo->prepare("SELECT {$selectFields} FROM users WHERE id = ?");
     $stmt->execute([$userId]);
     return $stmt->fetch();
 }
@@ -316,10 +308,13 @@ function getCurrentUser() {
     return isAuthenticated() ? findUserById($_SESSION['user_id']) : null;
 }
 
+
 /*
    Использование данных в шаблоне
+
    Например, вывод имени пользователя на странице
 */
+
 $user = getCurrentUser();
 
 if ($user): ?>
@@ -329,8 +324,44 @@ if ($user): ?>
 <?php endif; ?>
 ```
 
-> [!TIP]
-> Для повышения производительности можно реализовать кэширование часто используемых данных, если доступ к базе осуществляется слишком часто.
+### Эффективное управление данными пользователя через сессию — II часть
+
+В предыдущем примере, пользователь извлекается из базы данных каждый раз, когда это было необходимо. Хотя это и обеспечивает актуальность данных, при большом количестве обращений к текущему пользователю в одном запросе, это может повлиять на производительность.
+
+**Решение**: Кэширование пользователя в пределах одного запроса. Это позволяет избежать повторных запросов к базе данных, сохраняя данные в переменной.
+
+> [!IMPORTANT]
+> Кэширование работает только в пределах одного запроса. При следующем обращении к серверу данные будут извлечены заново для обеспечения актуальности.
+
+**Пример**. _Кэширование пользователя в пределах одного запроса_
+
+```php
+/**
+ * Получает текущего пользователя, кэшируя результат в пределах одного запроса.
+ *
+ * @return array|null Массив с данными пользователя или null, если пользователь не авторизован.
+ */
+function getCurrentUser(): ?array {
+    static $cachedUser = null;
+
+    if ($cachedUser !== null) {
+        return $cachedUser;
+    }
+
+    if (!isset($_SESSION['user_id'])) {
+        return null;
+    }
+
+    $cachedUser = findUserById($_SESSION['user_id']);
+
+    return $cachedUser;
+}
+```
+
+Такой способ обеспечивает баланс между производительностью и актуальностью:
+
+- **Актуальные данные**. При первом обращении данные берутся из базы.
+- **Производительность**. При повторных вызовах в рамках того же запроса возвращаются кэшированные данные.
 
 ### Механизм «Запомнить меня»
 
@@ -346,7 +377,7 @@ if ($user): ?>
 
 Для реализации механизма «Запомнить меня» в таблицу пользователей необходимо добавить поле `remember_token`. Это поле будет использоваться для хранения уникального токена, позволяющего идентифицировать пользователя при повторном посещении сайта без активной сессии.
 
-Итоговая структура таблицы `users` может включать следующие поля:
+Итоговая структура таблицы `users`:
 
 - `id`
 - `username` или `email`
@@ -363,12 +394,11 @@ if ($user): ?>
 4. Если токен валиден, выполняется автоматическая авторизация и создаётся сессия.
 5. Если пользователь не выбрал опцию «Запомнить меня», токен сохраняется только в сессии и будет удалён при закрытии браузера или по истечении времени сессии.
 
-**Пример**. _Установка токена при входе_
+**Пример**. _Аутентификация с использованием remember-токена_
 
 ```php
 <?php
 
-session_start();
 
 /*
    Конфигурационные параметры для токена:
@@ -379,6 +409,10 @@ session_start();
 define('REMEMBER_TOKEN_NAME', 'remember_token');
 define('REMEMBER_TOKEN_EXPIRATION', 60 * 60 * 24 * 30); // 30 дней
 define('REMEMBER_TOKEN_SIZE', 32);
+
+/*
+   Вспомогательные функции
+*/
 
 /**
  * Сохранить токен в базе данных
@@ -394,19 +428,21 @@ function saveRememberToken (int $userId, string $token) {
     return $stmt->execute([$token, $userId]);
 }
 
-
 /**
  * Генерация уникального токена
  *
  * @return string
  */
 function generateRememberToken() {
-    return bin2hex(random_bytes(REMEMBER_TOKEN_SIZE));
+    return bin2hex(random_bytes(REMEMBER_TOKEN_SIZE / 2));
 }
 
 /*
    Пример аутентификации пользователя с использованием токена
 */
+
+session_start();
+
 $username = $_POST['username'] ?? '';
 $password = $_POST['password'] ?? '';
 $remember = $_POST['remember'] ?? false;
@@ -415,17 +451,21 @@ $user = findUserByUsername($username);
 
 if ($user && password_verify($password, $username['password'])) {
    // Установить сессию
-   $_SESSION['id'] = $user['id'];
+   $_SESSION['user_id'] = $user['id'];
 
+   // Если пользователь выбрал "Запомнить меня"
    if ($remember) {
-      // Генерация и сохранение токена
+      // Генерация токена
       $token = generateRememberToken();
+
+      // Сохранение токена в базе данных
       saveRememberToken($user['id'], $token);
 
       // Установка cookie на 30 дней
       setcookie(REMEMBER_TOKEN_NAME, $token, time() + REMEMBER_TOKEN_EXPIRATION, '/', '', true, true);
    }
 
+   // Регенерация ID сессии (PHPSESESSID) для безопасности
    session_regenerate_id();
 
    header("Location: /");
@@ -433,12 +473,14 @@ if ($user && password_verify($password, $username['password'])) {
 }
 ```
 
-**Пример**. _Автоматическая аутентификация с по токену_
+**Пример**. _Автоматическая загрузка пользователя по токену_
 
 ```php
 <?php
 
-session_start();
+/*
+   Вспомогательные функции
+*/
 
 /**
  * Найти пользователя по токену
@@ -447,9 +489,10 @@ session_start();
  *
  * @return array|null
  */
-function findUserByToken(string $token) {
+function findUserByToken(string $token, array $columns = ['*']) {
     global $pdo;
-    $stmt = $pdo->prepare("SELECT * FROM users WHERE remember_token = ?");
+    $selectFields = implode(',', $columns);
+    $stmt = $pdo->prepare("SELECT {$selectFields} FROM users WHERE remember_token = ?");
     $stmt->execute([$token]);
     return $stmt->fetch();
 }
@@ -461,28 +504,46 @@ function findUserByToken(string $token) {
  *
  * @return array|null
  */
-function loadUserFromToken(string $token) {
-    if (!isset($token)) {
-        return null;
-    }
+function tryLoadUserFromToken(): bool {
+   // Проверяем, есть ли сессия
+   if (isset($_SESSION['user_id'])) {
+      return false;
+   }
 
-    return findUserByToken($token);
+   $token = $_COOKIE[REMEMBER_TOKEN_NAME] ?? null;
+
+    // Проверяем, установлен ли токен в cookie
+   if (!isset($token)) {
+      return false;
+   }
+
+   // Если токен установлен, ищем пользователя по токену
+   $user = findUserByToken($token, ["id"]);
+
+   session_regenerate_id(true); // Обновить идентификатор сессии
+
+   if ($user) {
+      // Обновить идентификатор пользователя
+      $_SESSION['user_id'] = $user['id'];
+      return true;
+   }
+
+   return false;
 }
 
-if (!isset($_SESSION['user_id']) && isset($_COOKIE['remember_token'])) {
-      $user = loadUserFromToken($_COOKIE[REMEMBER_TOKEN_NAME]);
-      session_regenerate_id(); // Обновить идентификатор сессии
-      if ($user) {
-         // Обновить идентификатор пользователя
-         $_SESSION['user_id'] = $user['id'];
-      }
-}
+/*
+   В начале каждого HTTP-запроса
+*/
+
+session_start();
+
+tryLoadUserFromToken(); // Загрузка пользователя по токену, если сессия не установлена
 ```
 
 > [!TIP]
 > Для повышения безопасности при каждой аутентификация по токену необходимо генерировать новый токен и заменять старый.
 
-## Выход из системы
+### Выход из системы
 
 **Выход из системы** — это процесс завершения сессии пользователя. Он может быть выполнен пользователем вручную (_например_, нажатием кнопки «Выйти») или автоматически (_например_, по истечении времени сессии).
 
@@ -495,8 +556,6 @@ if (!isset($_SESSION['user_id']) && isset($_COOKIE['remember_token'])) {
  * для повышения безопасности.
  */
 function deleteSession() {
-   session_start();
-
    // Удаление всех переменных сессии
    session_unset();
 
@@ -511,6 +570,9 @@ function deleteSession() {
       setcookie('remember_token', '', -1);
    }
 }
+
+
+session_start();
 
 deleteSession();
 
