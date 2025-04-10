@@ -130,7 +130,7 @@ function tryAttemp(string $email, string $password, bool $remember): array|null
  *
  * @return void
  */
-function logout()
+function logoutHandler()
 {
     sessionInvalidate();
     if (isRemembered()) {

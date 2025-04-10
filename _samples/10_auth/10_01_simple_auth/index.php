@@ -42,7 +42,7 @@ switch ($url) {
         registerHandler();
         break;
     case '/logout':
-        logout();
+        logoutHandler();
         break;
     default:
         http_response_code(404);
